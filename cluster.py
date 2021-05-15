@@ -4,7 +4,9 @@ class Cluster:
         self.samples = samples
 
     def merge(self, other):
-        pass
+        for sample in other.samples:
+            self.samples.append(sample)
+        del other
 
     def print_details(self, silhouette):
         pass
