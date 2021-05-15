@@ -1,5 +1,3 @@
-
-
 class Cluster:
     def __init__(self, c_id, samples):
         self.c_id = c_id
