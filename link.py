@@ -9,7 +9,7 @@ class SingleLink(Link):
         y0 = other.samples[0]
         minimal_distance = x0.compute_euclidean_distance(y0)
         for x in cluster.samples:
-            for y in other:
+            for y in other.samples:
                 d = x.compute_euclidean_distance(y)
                 if d < minimal_distance:
                     minimal_distance = d
@@ -23,7 +23,7 @@ class CompleteLink(Link):
         y0 = other.samples[0]
         maximal_distance = x0.compute_euclidean_distance(y0)
         for x in cluster.samples:
-            for y in other:
+            for y in other.samples:
                 d = x.compute_euclidean_distance(y)
                 if d > maximal_distance:
                     maximal_distance = d
