@@ -9,5 +9,3 @@ class Sample:
         for i in range(0, len(self.genes)):
             sum += (self.genes[i] - other.genes[i]) ** 2
         return sum ** 0.5
-
-
