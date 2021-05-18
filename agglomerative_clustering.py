@@ -1,7 +1,7 @@
 class AgglomerativeClustering:
-    def __init__(self, link, samples):
+    def __init__(self, link, clusters):
         self.link = link
-        self.samples = samples
+        self.clusters = clusters
 
     def compute_silhoeutte(self):
         pass
