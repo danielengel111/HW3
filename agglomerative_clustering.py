@@ -3,14 +3,52 @@ class AgglomerativeClustering:
         self.link = link
         self.clusters = clusters
 
+    def out_s(self, x, x_cluster):
+        arr = []
+        for cluster in self.clusters:
+            if cluster == x_cluster:
+                continue
+            arr.append(x.distance_of_cluster_from_sample(x_cluster, len(x_cluster.samples)))
+        return min(arr)
+
     def compute_silhoeutte(self):
-        pass
+        dict = {}
+        for cluster in self.clusters:
+            for x in cluster.samples:
+                in_x = x.distance_of_cluster_from_sample(cluster, len(cluster.samples) - 1)
+                out_x = self.out_s(x, cluster)
+                if len(cluster) > 1:
+                    dict[x.s_id] = (out_x - in_x) / max(out_x, in_x)
+                else:
+                    dict[x.s_id] = 0
+        return dict
 
     def compute_summery_silhoeutte(self):
-        pass
+        dict = {}
+        sample_dict = self.compute_silhoeutte()
+        for cluster in self.clusters:
+            silhoeutte_sum = 0
+            for x in cluster.samples:
+                silhoeutte_sum += sample_dict[x.s_id]
+            dict[cluster.c_id] = silhoeutte_sum / len(cluster.samples)
+        return dict
 
     def compute_rand_index(self):
         pass
 
     def run(self, max_clusters):
-        pass
+        while len(self.clusters) > max_clusters:
+            dict = {}
+            index = 1
+            temp_dict = {}
+            for i in range(len(self.clusters)):
+                for j in range(i + 1, len(self.clusters)):
+                    temp_dict[index] = [self.clusters[i], self.clusters[j]]
+                    dict[index] = self.link.compute(self.clusters[i], self.clusters[j])
+                    index += 1
+
+            to_merge_index = [key for key in dict if dict[key] == min(dict.values())][0]
+            duo = temp_dict[to_merge_index]
+            duo[0].merge(duo[1])
+            self.clusters.remove(duo[1])
+

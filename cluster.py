@@ -8,6 +8,6 @@ class Cluster:
             self.samples.append(sample)
         del other
 
-    def print_details(self, silhouette):
-        pass
+    def print_details(self):#, silhouette):
+        print(f"Cluster {self.c_id}: {[sample.s_id for sample in sorted(self.samples, key=lambda sample: sample.s_id)]}")
 
