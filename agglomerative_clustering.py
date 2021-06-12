@@ -1,7 +1,11 @@
+from cluster import Cluster
+
+
 class AgglomerativeClustering:
-    def __init__(self, link, clusters):
+    def __init__(self, link, samples):
         self.link = link
-        self.clusters = clusters
+        self.samples = samples
+        self.clusters = [Cluster(sample.s_id, [sample]) for sample in samples]
 
     def out_s(self, x, x_cluster):
         arr = []
