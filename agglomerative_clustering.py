@@ -36,6 +36,10 @@ class AgglomerativeClustering:
             for x in cluster.samples:
                 silhoeutte_sum += sample_dict[x.s_id]
             dict[cluster.c_id] = silhoeutte_sum / len(cluster.samples)
+        silhoeutte_sum = 0
+        for sample in self.samples:
+            silhoeutte_sum+=sample_dict[sample.s_id]
+        dict[0]=silhoeutte_sum/len(self.samples)
         return dict
 
     def compute_rand_index(self):

@@ -7,10 +7,11 @@ from agglomerative_clustering import AgglomerativeClustering
 def foo(d, samples, link):
     a = AgglomerativeClustering(link, samples)
     a.run(7)
+    summery_silhoeutte=a.compute_summery_silhoeutte()
     print(f"{link}:")
     for cluster in a.clusters:
-        cluster.print_details(a.compute_summery_silhoeutte()[cluster.c_id])
-    print()
+        cluster.print_details(summery_silhoeutte[cluster.c_id])
+    print(f"whole data: silhouette = {summery_silhoeutte[0]}, RI = {a.compute_rand_index()}")
 
 
 def main(argv):
