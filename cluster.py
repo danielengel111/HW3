@@ -1,4 +1,3 @@
-import agglomerative_clustering
 class Cluster:
     def __init__(self, c_id, samples):
         self.c_id = c_id
@@ -7,6 +6,9 @@ class Cluster:
     def merge(self, other):
         for sample in other.samples:
             self.samples.append(sample)
+
+        self.samples = sorted(self.samples, key=lambda s: s.s_id)
+        self.c_id = min(self.c_id, other.c_id)
         del other
 
     def print_details(self, silhouette):
