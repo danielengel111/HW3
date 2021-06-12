@@ -21,7 +21,7 @@ class AgglomerativeClustering:
             for x in cluster.samples:
                 in_x = x.distance_of_cluster_from_sample(cluster, len(cluster.samples) - 1)
                 out_x = self.out_s(x, cluster)
-                if len(cluster) > 1:
+                if len(cluster.samples) > 1:
                     dict[x.s_id] = (out_x - in_x) / max(out_x, in_x)
                 else:
                     dict[x.s_id] = 0
