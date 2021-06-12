@@ -10,7 +10,7 @@ def foo(d, samples, link):
     a.run(7)
     print(f"{link}:")
     for cluster in a.clusters:
-        cluster.print_details()
+        cluster.print_details(a.compute_summery_silhoeutte()[cluster.c_id])
     print()
 
 def main(argv):
