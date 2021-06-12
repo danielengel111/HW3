@@ -34,7 +34,27 @@ class AgglomerativeClustering:
         return dict
 
     def compute_rand_index(self):
-        pass
+        tp=0
+        tn=0
+        fp=0
+        fn=0
+        for cluster in self.clusters:
+            for first_sample in cluster.samples:
+                for second_sample in cluster.samples:
+                    if(first_sample!=second_sample):
+                        if first_sample.label == second_sample.label:
+                            tp+=1
+                        else:
+                            fp+=1
+            for second_cluster in self.clusters:
+                if cluster!=second_cluster:
+                    for first_sample in cluster.samples:
+                        for second_sample in second_cluster.samples:
+                            if first_sample.label != second_sample.label:
+                                tn += 1
+                            else:
+                                fn += 1
+        return (tp+tn)/(tp+tn+fp+fn)
 
     def run(self, max_clusters):
         while len(self.clusters) > max_clusters:
