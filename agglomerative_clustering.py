@@ -19,10 +19,11 @@ class AgglomerativeClustering:
         dict = {}
         for cluster in self.clusters:
             for x in cluster.samples:
-                in_x = x.distance_of_cluster_from_sample(cluster, len(cluster.samples) - 1)
-                out_x = self.out_s(x, cluster)
                 if len(cluster.samples) > 1:
                     dict[x.s_id] = (out_x - in_x) / max(out_x, in_x)
+                    in_x = x.distance_of_cluster_from_sample(cluster, len(cluster.samples) - 1)
+                    out_x = self.out_s(x, cluster)
+
                 else:
                     dict[x.s_id] = 0
         return dict
