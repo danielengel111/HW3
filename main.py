@@ -18,6 +18,7 @@ def main(argv):
     d = Data(argv[1])
     samples = d.create_samples()
     foo(d, samples, SingleLink())
+    print()
     foo(d, samples, CompleteLink())
 
 

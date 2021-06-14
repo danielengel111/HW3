@@ -10,8 +10,8 @@ class Data:
     def create_samples(self):
         sample_set = []
         for i in range(0, len(self.data['samples'])):
+            gene_list = []
             for key in self.data:
-                gene_list = []
                 if key == 'samples':
                     sample_id = self.data[key][i]
                 elif key == 'type':

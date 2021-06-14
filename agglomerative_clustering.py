@@ -6,6 +6,7 @@ class AgglomerativeClustering:
         self.link = link
         self.samples = samples
         self.clusters = [Cluster(sample.s_id, [sample]) for sample in samples]
+        self.distance_dict = link.compute_distance_dict(samples)
 
     def out_s(self, x, x_cluster):
         arr = []
