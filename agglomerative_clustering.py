@@ -8,12 +8,23 @@ class AgglomerativeClustering:
         self.clusters = [Cluster(sample.s_id, [sample]) for sample in samples]
         self.distance_dict = link.compute_distance_dict(samples)
 
+    def distance_of_cluster_from_sample(self, sample, cluster, n):
+        sum = 0
+        for y in cluster.samples:
+            if sample == y:
+                continue
+            if sample.s_id > y.s_id:
+                sum += self.link.distance_dict[y.s_id, sample.s_id]
+            else:
+                sum += self.link.distance_dict[sample.s_id, y.s_id]
+        return sum / n
+
     def out_s(self, x, x_cluster):
         arr = []
         for cluster in self.clusters:
             if cluster == x_cluster:
                 continue
-            arr.append(x.distance_of_cluster_from_sample(cluster, len(cluster.samples)))
+            arr.append(self.distance_of_cluster_from_sample(x, cluster, len(cluster.samples)))
         return min(arr)
 
     def compute_silhoeutte(self):
@@ -21,7 +32,7 @@ class AgglomerativeClustering:
         for cluster in self.clusters:
             for x in cluster.samples:
                 if len(cluster.samples) > 1:
-                    in_x = x.distance_of_cluster_from_sample(cluster, len(cluster.samples) - 1)
+                    in_x = self.distance_of_cluster_from_sample(x, cluster, len(cluster.samples) - 1)
                     out_x = self.out_s(x, cluster)
                     dict[x.s_id] = (out_x - in_x) / max(out_x, in_x)
                 else:
