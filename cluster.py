@@ -9,7 +9,6 @@ class Cluster:
 
         self.samples = sorted(self.samples, key=lambda s: s.s_id)
         self.c_id = min(self.c_id, other.c_id)
-        #del other
 
     def print_details(self, silhouette):
         max = 0
@@ -23,5 +22,5 @@ class Cluster:
                 max = current
 
         print(f"Cluster {self.c_id}: {[sample.s_id for sample in self.samples]}, ", end="")
-        print(f"dominant label = {dominanet_label}, silhouette = {silhouette}")
+        print(f"dominant label = {dominanet_label}, silhouette = {round(silhouette, 3)}")
 

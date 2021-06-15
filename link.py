@@ -12,24 +12,19 @@ class Link:
 
     def create_distance_arr(self, cluster, other):
         distance_arr = []
-        for i in range(0, len(cluster.samples)):
-            for j in range(0, len(other.samples)):
-                if cluster.samples[i].s_id > other.samples[j].s_id:
-                    distance_arr.append(self.distance_dict[(other.samples[j].s_id, cluster.samples[i].s_id)])
+        for x in cluster.samples:
+            for y in other.samples:
+                if x.s_id > y.s_id:
+                    distance_arr.append(self.distance_dict[(y.s_id, x.s_id)])
                 else:
-                    distance_arr.append(self.distance_dict[(cluster.samples[i].s_id, other.samples[j].s_id)])
+                    distance_arr.append(self.distance_dict[(x.s_id, y.s_id)])
+
         return distance_arr
 
 
 class SingleLink(Link):
     def compute(self, cluster, other):
         distance_arr = self.create_distance_arr(cluster, other)
-        """
-        for x in cluster.samples:
-            for y in other.samples:
-                distance_arr.append(x.compute_euclidean_distance(y))
-        return min(distance_arr)
-        """
         return min(distance_arr)
 
     def __str__(self):
@@ -39,11 +34,6 @@ class SingleLink(Link):
 class CompleteLink(Link):
     def compute(self, cluster, other):
         distance_arr = self.create_distance_arr(cluster, other)
-        """
-        for x in cluster.samples:
-            for y in other.samples:
-                distance_arr.append(x.compute_euclidean_distance(y))
-        """
         return max(distance_arr)
 
     def __str__(self):

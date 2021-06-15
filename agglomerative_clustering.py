@@ -13,7 +13,7 @@ class AgglomerativeClustering:
         for cluster in self.clusters:
             if cluster == x_cluster:
                 continue
-            arr.append(x.distance_of_cluster_from_sample(x_cluster, len(x_cluster.samples)))
+            arr.append(x.distance_of_cluster_from_sample(cluster, len(cluster.samples)))
         return min(arr)
 
     def compute_silhoeutte(self):
@@ -24,7 +24,6 @@ class AgglomerativeClustering:
                     in_x = x.distance_of_cluster_from_sample(cluster, len(cluster.samples) - 1)
                     out_x = self.out_s(x, cluster)
                     dict[x.s_id] = (out_x - in_x) / max(out_x, in_x)
-
                 else:
                     dict[x.s_id] = 0
         return dict
@@ -39,8 +38,8 @@ class AgglomerativeClustering:
             dict[cluster.c_id] = silhoeutte_sum / len(cluster.samples)
         silhoeutte_sum = 0
         for sample in self.samples:
-            silhoeutte_sum+=sample_dict[sample.s_id]
-        dict[0]=silhoeutte_sum/len(self.samples)
+            silhoeutte_sum += sample_dict[sample.s_id]
+        dict[0] = silhoeutte_sum / len(self.samples)
         return dict
 
     def compute_rand_index(self):
